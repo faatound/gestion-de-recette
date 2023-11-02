@@ -1,14 +1,21 @@
-<?php
-
+ <?php 
+ $utilisateur = [
+        'name' => 'Mickaël Andrieu',
+        'email' => 'mickael.andrieu@exemple.com',
+        'password' => 'passer123',
+        'age' => 25,
+    
+    ];
 // Validation du formulaire
-if (isset($_POST['email']) &&  isset($_POST['password'])) {
-    foreach ($users as $user) {
+if (isset($_POST['email']) &&  isset($_POST['password']))  {
+   if(is_array($utilisateur)) {
+    
         if (
-            $user['email'] === $_POST['email'] &&
-            $user['password'] === $_POST['password']
+            $utilisateur['email'] == $_POST['email'] &&
+            $utilisateur['password'] == $_POST['password']
         ) {
             $loggedUser = [
-                'email' => $user['email'],
+                'email' => $utilisateur['email'],
             ];
         } else {
             $errorMessage = sprintf('Les informations envoyées ne permettent pas de vous identifier : (%s/%s)',
@@ -17,7 +24,8 @@ if (isset($_POST['email']) &&  isset($_POST['password'])) {
             );
         }
     }
-}
+   }
+
 ?>
 
 <!--
