@@ -14,6 +14,9 @@
 <body class="d-flex flex-column min-vh-100">
     <div class="container">
 
+      <!-- Navigation -->
+      
+
     <!-- Navigation -->
     <?php include_once('header.php'); ?>
 
@@ -22,14 +25,25 @@
         <h1>Site de Recettes !</h1>
 
         <!-- Si l'utilisateur existe, on affiche les recettes -->
+
         <?php if(isset($loggedUser)): ?>
-            <?php foreach(get_recipes($recipes, $limit) as $recipe) : ?>
-                <article>
-                    <h3><?php echo $recipe['title']; ?></h3>
-                    <div><?php echo $recipe['recipe']; ?></div>
-                    <i><?php echo display_author($recipe['author'], $users); ?></i>
-                </article>
-            <?php endforeach ?>
+            <?php 
+                 include_once ('connexion.php');
+                // On récupère tout le contenu de la table recipes
+                $sqlQuery = 'SELECT * FROM partage-de-recette';
+                $usersStatement = $mysqlClient->prepare($sqlQuery);
+                $usersStatement->execute();
+                $users = $usersStatement->fetchAll();
+                
+                // On affiche chaque recette une à une
+                foreach ($users as $user) {
+                ?>
+                    <p><?php echo $user['email']; ?></p>
+                <?php
+                }
+                ?>
+        
+           
         <?php endif; ?>
     </div>
 
